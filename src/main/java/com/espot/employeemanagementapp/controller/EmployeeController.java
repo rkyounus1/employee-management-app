@@ -11,8 +11,6 @@ public class EmployeeController {
     public <emp> String createEmp(@RequestBody emp a){
          String empName="name";
          return empName;
-
-
     }
 
     @GetMapping("/")
