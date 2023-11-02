@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class EmployeeController {
-@GetMapping
+@GetMapping("/")
 public String getEmployee(){
-    String emp = "getEmployeeMethod";
+    String emp = "EmployeeMethod";
         return emp;
     }
 }
