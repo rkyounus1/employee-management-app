@@ -1,4 +1,4 @@
-package com.espot.employeemanagementapp.Repository;
+package com.espot.employeemanagementapp.repository;
 
 import com.espot.employeemanagementapp.entity.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
