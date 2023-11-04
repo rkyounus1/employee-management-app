@@ -12,6 +12,7 @@ import java.util.List;
 public class EmployeeController {
     @Autowired
     EmployeeRepository employeeRepository;
+
 @GetMapping("/")
 public List<Employee> getEmployee(){
        List<Employee> list = employeeRepository.findAll();
@@ -22,6 +23,13 @@ public List<Employee> getEmployee(){
     public String createEmp(@RequestBody Employee employee){
     employeeRepository.save(employee);
     return "success";
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteEmployee(@PathVariable Long id) {
+            employeeRepository.deleteById(id);
+            return "Employee with ID " + id + " has been deleted.";
+
     }
 
 }
