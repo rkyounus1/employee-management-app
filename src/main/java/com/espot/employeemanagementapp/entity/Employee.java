@@ -1,25 +1,28 @@
 package com.espot.employeemanagementapp.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="employee")
 public class Employee {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("id")
-    Long id;
+    @Column(name ="id")
+    private Long id;
+
     @JsonProperty("firstName")
+    @Column(name ="first_name")
+    private String firstName;
 
-    String firstName;
     @JsonProperty("lastName")
+    @Column(name ="last_name")
+    private String lastName;
 
-    String lastName;
     @JsonProperty("emailId")
-
-    String emailId;
+    @Column(name ="email_id")
+    private String emailId;
 
     public Long getId() {
         return id;
