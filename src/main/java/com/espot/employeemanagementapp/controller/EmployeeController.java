@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/employees")
-public class EmployeeController {
+public class EmployeeController  {
     @Autowired
     EmployeeRepository employeeRepository;
 
@@ -32,10 +32,27 @@ public String createEmp(@RequestBody Employee employee){
     }
 
 @DeleteMapping("/{id}")
-public String deleteEmployee(@PathVariable Long id) {
+public String deleteEmployee(@PathVariable("id") Long id) {
             employeeRepository.deleteById(id);
             return "Employee with ID " + id + " has been deleted.";
 
     }
+
+@PutMapping("/{id}")
+public String updateEmployee(@PathVariable("id") Long id ,@RequestBody Employee updatedemployee){
+    Optional<Employee> existingEmployee = employeeRepository.findById(id);
+
+    if(existingEmployee.isPresent()){
+    Employee employee = existingEmployee.get();
+    employee.setFirstName(updatedemployee.getFirstName());
+    employee.setLastName(updatedemployee.getLastName());
+    employee.setEmailId(updatedemployee.getEmailId());
+
+    employeeRepository.save(employee);
+
+    }
+
+return "Updated Employee";
+}
 
 }
