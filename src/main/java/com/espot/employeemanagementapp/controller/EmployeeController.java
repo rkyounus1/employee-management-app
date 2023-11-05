@@ -44,7 +44,6 @@ public String updateEmployee(@PathVariable("id") Long id ,@RequestBody Employee 
 
     if(existingEmployee.isPresent()){
     Employee employee = existingEmployee.get();
-
     employee.setFirstName(updatedemployee.getFirstName());
     employee.setLastName(updatedemployee.getLastName());
     employee.setEmailId(updatedemployee.getEmailId());
