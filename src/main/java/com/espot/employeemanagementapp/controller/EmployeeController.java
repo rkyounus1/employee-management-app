@@ -55,4 +55,27 @@ public String updateEmployee(@PathVariable("id") Long id ,@RequestBody Employee 
 return "Updated Employee";
 }
 
+    @PatchMapping("/{id}")
+    public String patchUpdateEmployee(@PathVariable("id") Long id, @RequestBody Employee updatedEmployee) {
+        Optional<Employee> existingEmployee = employeeRepository.findById(id);
+
+        if (existingEmployee.isPresent()) {
+            Employee employee = existingEmployee.get();
+
+            if (updatedEmployee.getFirstName() != null) {
+                employee.setFirstName(updatedEmployee.getFirstName());
+            }
+            if (updatedEmployee.getLastName() != null) {
+                employee.setLastName(updatedEmployee.getLastName());
+            }
+            if (updatedEmployee.getEmailId() != null) {
+                employee.setEmailId(updatedEmployee.getEmailId());
+            }
+
+            employeeRepository.save(employee);
+            return "Updated Employee";
+        } else {
+            return "Employee not found";
+        }
+    }
 }
