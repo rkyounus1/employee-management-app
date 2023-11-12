@@ -11,7 +11,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/employees")
 @CrossOrigin(origins = "*",allowedHeaders = "*",methods = {RequestMethod.GET,RequestMethod.DELETE,RequestMethod.POST,RequestMethod.PUT,RequestMethod.PATCH})
-public class EmployeeController {
+public class EmployeeController  {
     @Autowired
     EmployeeRepository employeeRepository;
 
@@ -33,10 +33,49 @@ public String createEmp(@RequestBody Employee employee){
     }
 
 @DeleteMapping("/{id}")
-public String deleteEmployee(@PathVariable("id") Long empId) {
-            employeeRepository.deleteById(empId);
-            return "Employee with ID " + empId + " has been deleted.";
+public String deleteEmployee(@PathVariable("id") Long id) {
+            employeeRepository.deleteById(id);
+            return "Employee with ID " + id + " has been deleted.";
+    }
+
+@PutMapping("/{id}")
+public String updateEmployee(@PathVariable("id") Long id ,@RequestBody Employee updatedemployee){
+    Optional<Employee> existingEmployee = employeeRepository.findById(id);
+
+    if(existingEmployee.isPresent()){
+    Employee employee = existingEmployee.get();
+    employee.setFirstName(updatedemployee.getFirstName());
+    employee.setLastName(updatedemployee.getLastName());
+    employee.setEmailId(updatedemployee.getEmailId());
+
+    employeeRepository.save(employee);
 
     }
 
+return "Updated Employee";
+}
+
+    @PatchMapping("/{id}")
+    public String patchUpdateEmployee(@PathVariable("id") Long id, @RequestBody Employee updatedEmployee) {
+        Optional<Employee> existingEmployee = employeeRepository.findById(id);
+
+        if (existingEmployee.isPresent()) {
+            Employee employee = existingEmployee.get();
+
+            if (updatedEmployee.getFirstName() != null) {
+                employee.setFirstName(updatedEmployee.getFirstName());
+            }
+            if (updatedEmployee.getLastName() != null) {
+                employee.setLastName(updatedEmployee.getLastName());
+            }
+            if (updatedEmployee.getEmailId() != null) {
+                employee.setEmailId(updatedEmployee.getEmailId());
+            }
+
+            employeeRepository.save(employee);
+            return "Updated Employee";
+        } else {
+            return "Employee not found";
+        }
+    }
 }
