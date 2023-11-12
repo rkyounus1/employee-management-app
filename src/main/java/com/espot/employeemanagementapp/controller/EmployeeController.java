@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/employees")
+@CrossOrigin(origins = "*",allowedHeaders = "*",methods = {RequestMethod.GET,RequestMethod.DELETE,RequestMethod.POST,RequestMethod.PUT,RequestMethod.PATCH})
 public class EmployeeController  {
     @Autowired
     EmployeeRepository employeeRepository;
@@ -19,7 +20,7 @@ public List<Employee> getEmployee(){
        List<Employee> list = employeeRepository.findAll();
         return list;
     }
-@GetMapping("/employee/{id}")
+@GetMapping("/{id}")
 public Optional<Employee> getEmployeeById(@PathVariable("id") Long employeeId){
         Optional<Employee> empId = employeeRepository.findById(employeeId);
         return empId;
@@ -35,7 +36,6 @@ public String createEmp(@RequestBody Employee employee){
 public String deleteEmployee(@PathVariable("id") Long id) {
             employeeRepository.deleteById(id);
             return "Employee with ID " + id + " has been deleted.";
-
     }
 
 @PutMapping("/{id}")
