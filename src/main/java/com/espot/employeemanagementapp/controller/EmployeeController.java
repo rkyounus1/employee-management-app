@@ -2,10 +2,12 @@ package com.espot.employeemanagementapp.controller;
 
 import com.espot.employeemanagementapp.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.espot.employeemanagementapp.entity.Employee;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -27,6 +29,7 @@ public Optional<Employee> getEmployeeById(@PathVariable("id") Long employeeId){
 
 @PostMapping("/")
 public String createEmp(@RequestBody Employee employee){
+
     employeeRepository.save(employee);
     return "success";
     }
@@ -49,10 +52,7 @@ public String updateEmployee(@PathVariable("id") Long id ,@RequestBody Employee 
     employee.setEmailId(updatedemployee.getEmailId());
 
     employeeRepository.save(employee);
-
     }
-
 return "Updated Employee";
 }
-
 }
