@@ -9,36 +9,36 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/employees")
+@RequestMapping("/api/v1/employees/")
 @CrossOrigin(origins = "*",allowedHeaders = "*",methods = {RequestMethod.GET,RequestMethod.DELETE,RequestMethod.POST,RequestMethod.PUT,RequestMethod.PATCH})
 public class EmployeeController  {
     @Autowired
     EmployeeRepository employeeRepository;
 
-@GetMapping("/")
+@GetMapping("")
 public List<Employee> getEmployee(){
        List<Employee> list = employeeRepository.findAll();
         return list;
     }
-@GetMapping("/{id}")
+@GetMapping("{id}")
 public Optional<Employee> getEmployeeById(@PathVariable("id") Long employeeId){
         Optional<Employee> empId = employeeRepository.findById(employeeId);
         return empId;
     }
 
-@PostMapping("/")
+@PostMapping("")
 public String createEmp(@RequestBody Employee employee){
     employeeRepository.save(employee);
     return "success";
     }
 
-@DeleteMapping("/{id}")
+@DeleteMapping("{id}")
 public String deleteEmployee(@PathVariable("id") Long id) {
             employeeRepository.deleteById(id);
             return "Employee with ID " + id + " has been deleted.";
     }
 
-@PutMapping("/{id}")
+@PutMapping("{id}")
 public String updateEmployee(@PathVariable("id") Long id ,@RequestBody Employee updatedemployee){
     Optional<Employee> existingEmployee = employeeRepository.findById(id);
 
@@ -55,7 +55,7 @@ public String updateEmployee(@PathVariable("id") Long id ,@RequestBody Employee 
 return "Updated Employee";
 }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("{id}")
     public String patchUpdateEmployee(@PathVariable("id") Long id, @RequestBody Employee updatedEmployee) {
         Optional<Employee> existingEmployee = employeeRepository.findById(id);
 
