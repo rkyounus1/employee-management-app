@@ -8,21 +8,22 @@ import jakarta.persistence.*;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonProperty("id")
     @Column(name ="id")
     private Long id;
 
-    @JsonProperty("firstName")
     @Column(name ="first_name")
     private String firstName;
 
-    @JsonProperty("lastName")
     @Column(name ="last_name")
     private String lastName;
 
-    @JsonProperty("emailId")
+//    @JsonProperty("emailId")
     @Column(name ="email_id")
     private String emailId;
+
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
 
     public Long getId() {
         return id;
@@ -54,6 +55,14 @@ public class Employee {
 
     public void setEmailId(String emailId) {
         this.emailId = emailId;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     public Employee() {
