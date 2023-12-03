@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="employee")
 public class Employee {
+    @ManyToOne
+  @JoinColumn(name = "department_id")
+private Department department;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("id")
