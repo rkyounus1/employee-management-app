@@ -2,6 +2,8 @@ package com.espot.employeemanagementapp.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 
 @Entity
 public class Department {
@@ -20,6 +22,9 @@ public class Department {
     private double salary;
     @Column(name ="mobile_no")
     private String mobileNo;
+
+    @OneToMany(mappedBy ="department")
+    List<Employee> employee;
 
     public Long getId() {
         return id;
