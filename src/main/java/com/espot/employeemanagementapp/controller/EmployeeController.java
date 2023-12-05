@@ -19,36 +19,37 @@ public class EmployeeController  {
     @Autowired
     EmployeeRepository employeeRepository;
 
-    @Autowired
-    DepartmentRepository departmentRepository;
-    @GetMapping("")
-    public List<EmployeeDepartmentDTO> getEmployeeDetails() {
-        List<EmployeeDepartmentDTO> employeeDepartmentDTOList = new ArrayList<>();
+//    @Autowired
+//    DepartmentRepository departmentRepository;
+//    @GetMapping("")
+//    public List<EmployeeDepartmentDTO> getEmployeeDetails() {
+//        List<EmployeeDepartmentDTO> employeeDepartmentDTOList = new ArrayList<>();
+//
+//        List<Employee> employees = employeeRepository.findAll();
+//
+//        for (Employee employee : employees) {
+//            EmployeeDepartmentDTO dto = new EmployeeDepartmentDTO();
+//            dto.setId(employee.getId());
+//            dto.setFirstName(employee.getFirstName());
+//            dto.setLastName(employee.getLastName());
+//            dto.setEmailId(employee.getEmailId());
+//
+//            Department department = employee.getDepartment();
+//            if (department != null) {
+//                dto.setDepartmentName(department.getDepartmentName());
+//                dto.setFromDate(department.getFromDate());
+//                dto.setToDate(department.getToDate());
+//                dto.setAge(department.getAge());
+//                dto.setSalary(department.getSalary());
+//                dto.setMobileNo(department.getMobileNo());
+//            }
+//
+//            employeeDepartmentDTOList.add(dto);
+//        }
+//
+//        return employeeDepartmentDTOList;
+//    }
 
-        List<Employee> employees = employeeRepository.findAll();
-
-        for (Employee employee : employees) {
-            EmployeeDepartmentDTO dto = new EmployeeDepartmentDTO();
-            dto.setId(employee.getId());
-            dto.setFirstName(employee.getFirstName());
-            dto.setLastName(employee.getLastName());
-            dto.setEmailId(employee.getEmailId());
-
-            Department department = employee.getDepartment();
-            if (department != null) {
-                dto.setDepartmentName(department.getDepartmentName());
-                dto.setFromDate(department.getFromDate());
-                dto.setToDate(department.getToDate());
-                dto.setAge(department.getAge());
-                dto.setSalary(department.getSalary());
-                dto.setMobileNo(department.getMobileNo());
-            }
-
-            employeeDepartmentDTOList.add(dto);
-        }
-
-        return employeeDepartmentDTOList;
-    }
 @GetMapping("{id}")
 public Optional<Employee> getEmployeeById(@PathVariable("id") Long employeeId){
         Optional<Employee> empId = employeeRepository.findById(employeeId);
@@ -57,10 +58,10 @@ public Optional<Employee> getEmployeeById(@PathVariable("id") Long employeeId){
 
 @PostMapping("")
 public String createEmp(@RequestBody Employee employee){
-    Department department = employee.getDepartment();
-    if (department != null) {
-        departmentRepository.save(department);
-    }
+//    Department department = employee.getDepartment();
+//    if (department != null) {
+//        departmentRepository.save(department);
+//    }
     employeeRepository.save(employee);
     return "success";
     }

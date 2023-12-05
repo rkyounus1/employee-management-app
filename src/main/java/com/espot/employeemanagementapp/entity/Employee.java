@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="employee")
 public class Employee {
+    @ManyToOne
+  @JoinColumn(name = "department_id")
+private Department department;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="id")
@@ -17,13 +20,9 @@ public class Employee {
     @Column(name ="last_name")
     private String lastName;
 
-//    @JsonProperty("emailId")
+    @JsonProperty("emailId")
     @Column(name ="email_id")
     private String emailId;
-
-    @ManyToOne
-    @JoinColumn(name = "department_id")
-    private Department department;
 
     public Long getId() {
         return id;

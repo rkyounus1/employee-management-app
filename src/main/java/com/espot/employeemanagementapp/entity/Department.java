@@ -1,79 +1,64 @@
 package com.espot.employeemanagementapp.entity;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
+import java.util.List;
 
 @Entity
+@Table(name="department")
 public class Department {
+
+    public Department() {
+    }
+
+    @OneToMany(mappedBy = "department")
+     private List<Employee> employees;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty("id")
+    @Column(name ="id")
     private Long id;
-    @Column(name ="department_name")
-    private String departmentName;
-    @Column(name ="from_date")
-    private String fromDate;
-    @Column(name ="to_date")
-    private String toDate;
-    @Column(name ="age")
-    private int age;
-    @Column(name ="salary")
-    private double salary;
-    @Column(name ="mobile_no")
-    private String mobileNo;
 
-    public Long getId() {
-        return id;
+    @JsonProperty("departName")
+    @Column(name ="departName")
+    private String departName;
+    @JsonProperty("number")
+    @Column(name ="number")
+    private long number;
+
+    @JsonProperty("manager")
+    @Column(name ="manager")
+    private String manager;
+
+    public String getDepartName() {
+        return departName;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setDepartName(String departName) {
+        this.departName = departName;
     }
 
-    public String getDepartmentName() {
-        return departmentName;
+    public long getNumber() {
+        return number;
     }
 
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
+    public void setNumber(long number) {
+        this.number = number;
     }
 
-    public String getFromDate() {
-        return fromDate;
+    public String getManager() {
+        return manager;
     }
 
-    public void setFromDate(String fromDate) {
-        this.fromDate = fromDate;
+    public void setManager(String manager) {
+        this.manager = manager;
     }
 
-    public String getToDate() {
-        return toDate;
+    public Department(String departName, long number, String manager) {
+        this.departName = departName;
+        this.number = number;
+        this.manager = manager;
     }
 
-    public void setToDate(String toDate) {
-        this.toDate = toDate;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public double getSalary() {
-        return salary;
-    }
-
-    public void setSalary(double salary) {
-        this.salary = salary;
-    }
-
-    public String getMobileNo() {
-        return mobileNo;
-    }
-
-    public void setMobileNo(String mobileNo) {
-        this.mobileNo = mobileNo;
-    }
 }
