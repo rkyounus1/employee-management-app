@@ -10,50 +10,51 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/employees/")
-@CrossOrigin(origins = "*",allowedHeaders = "*",methods = {RequestMethod.GET,RequestMethod.DELETE,RequestMethod.POST,RequestMethod.PUT,RequestMethod.PATCH})
-public class EmployeeController  {
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT, RequestMethod.PATCH})
+public class EmployeeController {
     @Autowired
     EmployeeRepository employeeRepository;
 
-@GetMapping("")
-public List<Employee> getEmployee(){
-       List<Employee> list = employeeRepository.findAll();
+    @GetMapping("")
+    public List<Employee> getEmployee() {
+        List<Employee> list = employeeRepository.findAll();
         return list;
     }
-@GetMapping("{id}")
-public Optional<Employee> getEmployeeById(@PathVariable("id") Long employeeId){
+
+    @GetMapping("{id}")
+    public Optional<Employee> getEmployeeById(@PathVariable("id") Long employeeId) {
         Optional<Employee> empId = employeeRepository.findById(employeeId);
         return empId;
     }
 
-@PostMapping("")
-public String createEmp(@RequestBody Employee employee){
-    employeeRepository.save(employee);
-    return "success";
+    @PostMapping("")
+    public String createEmp(@RequestBody Employee employee) {
+        employeeRepository.save(employee);
+        return null;
     }
 
-@DeleteMapping("{id}")
-public String deleteEmployee(@PathVariable("id") Long id) {
-            employeeRepository.deleteById(id);
-            return "Employee with ID " + id + " has been deleted.";
+    @DeleteMapping("{id}")
+    public String deleteEmployee(@PathVariable("id") Long id) {
+        employeeRepository.deleteById(id);
+        return "Employee with ID " + id + " has been deleted.";
     }
 
-@PutMapping("{id}")
-public String updateEmployee(@PathVariable("id") Long id ,@RequestBody Employee updatedemployee){
-    Optional<Employee> existingEmployee = employeeRepository.findById(id);
+    @PutMapping("{id}")
+    public String updateEmployee(@PathVariable("id") Long id, @RequestBody Employee updatedemployee) {
+        Optional<Employee> existingEmployee = employeeRepository.findById(id);
 
-    if(existingEmployee.isPresent()){
-    Employee employee = existingEmployee.get();
-    employee.setFirstName(updatedemployee.getFirstName());
-    employee.setLastName(updatedemployee.getLastName());
-    employee.setEmailId(updatedemployee.getEmailId());
+        if (existingEmployee.isPresent()) {
+            Employee employee = existingEmployee.get();
+            employee.setFirstName(updatedemployee.getFirstName());
+            employee.setLastName(updatedemployee.getLastName());
+            employee.setEmailId(updatedemployee.getEmailId());
 
-    employeeRepository.save(employee);
+            employeeRepository.save(employee);
 
+        }
+
+        return "Updated Employee";
     }
-
-return "Updated Employee";
-}
 
     @PatchMapping("{id}")
     public String patchUpdateEmployee(@PathVariable("id") Long id, @RequestBody Employee updatedEmployee) {
@@ -77,5 +78,12 @@ return "Updated Employee";
         } else {
             return "Employee not found";
         }
+    }
+
+    @GetMapping("search")
+    public List<Employee> searchEmployees(@RequestParam(required = false) String lastName,
+                                          @RequestParam(required = false) String emailId) {
+
+        return employeeRepository.findByLastNameIgnoreCaseOrEmailIdIgnoreCase(lastName, emailId);
     }
 }
